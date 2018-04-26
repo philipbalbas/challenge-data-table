@@ -7,16 +7,24 @@ var rows = require('./data.json')
 const reduce = (row, memo) => {
   if (row.type === 'impression') {
     memo.impressions = (memo.impressions || 0) + 1
-    return memo
   }
   if (row.type === 'load') {
     memo.loads = (memo.loads || 0) + 1
-    return memo
   }
   if (row.type === 'display') {
     memo.displays = (memo.displays || 0) + 1
-    return memo
   }
+
+  if (memo.loads) {
+    if (memo.impressions) {
+      memo.loadRate = memo.loads / memo.impressions
+    }
+    if (memo.displays) {
+      memo.displayRate = memo.displays / memo.loads
+    }
+  }
+
+  return memo
 }
 
 const calculations = [
@@ -39,14 +47,14 @@ const calculations = [
     title: 'Load Rate',
     value: 'loadRate',
     template: (val, row) => {
-      return `${(row.loads / row.impressions * 100).toFixed(1)}%`
+      return `${(val * 100).toFixed(1)}%`
     }
   },
   {
     title: 'Display Rate',
     value: 'displayRate',
     template: (val, row) => {
-      return `${(row.displays / row.loads * 100).toFixed(1)}%`
+      return `${(val * 100).toFixed(1)}%`
     }
   }
 ]
