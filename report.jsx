@@ -55,7 +55,6 @@ module.exports = createReactClass({
   render() {
     return (
       <div>
-        Report
         <ReactPivot
           rows={rows}
           dimensions={[
