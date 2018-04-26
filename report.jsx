@@ -47,14 +47,18 @@ const calculations = [
     title: 'Load Rate',
     value: 'loadRate',
     template: (val, row) => {
-      return `${(val * 100).toFixed(1)}%`
+      if (val) {
+        return `${(val * 100).toFixed(1)}%`
+      }
     }
   },
   {
     title: 'Display Rate',
     value: 'displayRate',
     template: (val, row) => {
-      return `${(val * 100).toFixed(1)}%`
+      if (val) {
+        return `${(val * 100).toFixed(1)}%`
+      }
     }
   }
 ]
